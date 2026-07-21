@@ -1,0 +1,14 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencies (none required for v1, but future-proofing)
+node_modules/
+
+# Vercel
+.vercel
+
+# Logs
+*.log
