@@ -360,27 +360,53 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   margin-bottom: 22px;
 }
-.about__facts li {
+.fact { border-bottom: 1px solid var(--border); }
+.fact:last-child { border-bottom: 0; }
+.fact > summary {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
+  padding: 12px 0;
   color: var(--muted);
-  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s var(--ease);
 }
-.about__facts li:last-child { border-bottom: 0; }
-.about__facts span {
+.fact > summary::-webkit-details-marker { display: none; }
+.fact > summary:hover { color: var(--text); }
+.fact__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
 }
-.about__facts span svg { width: 20px; height: 20px; }
-.about__facts li:nth-child(1) span { color: #a78bfa; } /* purple */
-.about__facts li:nth-child(2) span { color: #34d399; } /* green */
-.about__facts li:nth-child(3) span { color: #fbbf24; } /* yellow */
-.about__facts li:nth-child(4) span { color: #f87171; } /* red */
-.about__facts li:nth-child(5) span { color: #f472b6; } /* pink */
+.fact__icon svg { width: 20px; height: 20px; }
+.fact__label { font-weight: 500; }
+.fact__chevron {
+  width: 16px; height: 16px;
+  margin-left: auto;
+  flex: 0 0 auto;
+  color: var(--muted);
+  transition: transform 0.25s var(--ease);
+}
+.fact[open] > summary .fact__chevron { transform: rotate(180deg); }
+.fact__info {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0 4px 14px 32px;
+}
+.fact[open] .fact__info { animation: factReveal 0.25s var(--ease); }
+@keyframes factReveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fact:nth-child(1) .fact__icon { color: #a78bfa; } /* purple */
+.fact:nth-child(2) .fact__icon { color: #34d399; } /* green */
+.fact:nth-child(3) .fact__icon { color: #fbbf24; } /* yellow */
+.fact:nth-child(4) .fact__icon { color: #f87171; } /* red */
+.fact:nth-child(5) .fact__icon { color: #f472b6; } /* pink */
 
 /* ---------- Projects ---------- */
 .projects {
