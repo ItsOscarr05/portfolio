@@ -21,7 +21,8 @@ portfolio/
 ├── script.js       # Sticky nav, mobile menu, scroll-spy, reveal animations
 ├── vercel.json      # Static hosting config
 └── assets/
-    └── OscarBerrigan_Resume_2026.docx   # linked from the resume buttons
+    ├── OscarBerrigan_Resume_2026.pdf    # linked from the resume buttons
+    └── OscarBerrigan_Resume_2026.docx   # editable source
 ```
 
 ## Editing content
@@ -36,8 +37,8 @@ Everything lives in `index.html`:
 
 ### Things to finish (from the PRD open items)
 
-- [ ] Consider exporting the resume to PDF (recruiters often prefer PDF over .docx);
-      if you do, update the three `href="assets/..."` links in `index.html`
+- [ ] When updating the resume, edit the `.docx` and re-export to
+      `OscarBerrigan_Resume_2026.pdf` (the resume buttons link to the PDF)
 - [ ] Write the final one-sentence description for **AssignmentAI**
       (search for `TODO` in `index.html`)
 - [ ] Point each project's GitHub/live-demo links at the correct repos/URLs
