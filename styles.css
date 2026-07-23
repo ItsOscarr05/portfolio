@@ -501,6 +501,28 @@ img { max-width: 100%; display: block; }
 .card__link-text:hover { text-decoration: underline; }
 .card__tagline { color: var(--text); font-weight: 500; margin-bottom: 10px; }
 .card__desc { color: var(--muted); font-size: 0.94rem; margin-bottom: 18px; flex: 1; }
+.card__links a.card__report {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f2c811;
+  background: transparent;
+  border: 2.5px solid rgba(242, 200, 17, 0.6);
+  white-space: nowrap;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease),
+              border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.card__links a.card__report:hover {
+  color: #0a0a0b;
+  background: #f2c811;
+  border-color: #f2c811;
+  transform: translateY(-2px);
+}
+.card__report svg { flex: 0 0 auto; }
 
 /* ---------- Tags ---------- */
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
