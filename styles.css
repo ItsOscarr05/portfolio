@@ -351,13 +351,10 @@ img { max-width: 100%; display: block; }
 .about__avatar {
   width: 88px; height: 88px;
   border-radius: 20px;
-  display: grid;
-  place-items: center;
-  font-family: "Sora", sans-serif;
-  font-weight: 800;
-  font-size: 1.8rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  background: var(--bg-soft);
   margin-bottom: 22px;
 }
 .fact { border-bottom: 1px solid var(--border); }
