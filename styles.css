@@ -531,15 +531,17 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
 }
 .card__media--cert::after { display: none; }
+.card__media--cert { background: var(--bg-soft); }
 .card__cert-thumb {
   position: absolute;
-  inset: 0;
+  inset: 18px;
   z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: var(--bg-soft);
+  width: calc(100% - 36px);
+  height: calc(100% - 36px);
+  object-fit: contain;
 }
+/* For logos with extra transparent padding baked in (e.g. Power BI) */
+.card__cert-thumb--zoom { transform: scale(1.5); }
 .card__cert-hint {
   position: absolute;
   inset: 0;
