@@ -66,28 +66,122 @@
   );
   revealables.forEach((el) => revealer.observe(el));
 
-  // --- Smooth eased navigation for in-page anchors ---
+  // --- Smooth eased scrolling (wheel + in-page anchors) ---
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(pointer: fine)");
   const NAV_OFFSET = 84; // matches html scroll-padding-top / sticky nav height
+
+  // Custom wheel smoothing only where it helps: mouse/trackpad, motion allowed.
+  // Touch devices keep their native momentum scrolling.
+  const smoothEnabled = finePointer.matches && !reduceMotion.matches;
+
+  const maxScroll = () =>
+    Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const clampY = (y) => Math.max(0, Math.min(y, maxScroll()));
+
+  let targetY = window.scrollY;
+  let currentY = window.scrollY;
+  let ticking = false;
+  const EASE = 0.12; // lower = smoother/longer glide
+
+  const tick = () => {
+    currentY += (targetY - currentY) * EASE;
+    if (Math.abs(targetY - currentY) < 0.4) {
+      currentY = targetY;
+      window.scrollTo(0, currentY);
+      ticking = false;
+      return;
+    }
+    window.scrollTo(0, currentY);
+    requestAnimationFrame(tick);
+  };
+  const ensureTick = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(tick);
+    }
+  };
+
+  // Deliberate, clearly-visible glide for nav/CTA clicks (independent of the
+  // subtle wheel lerp) — eased over a fixed duration so the motion reads well.
   const easeInOutCubic = (t) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-  const smoothScrollTo = (targetY, duration = 700) => {
+  // JS drives all click scrolling, so make sure native CSS smoothing never
+  // competes with our per-frame updates (a common cause of "jumpy" scrolling).
+  document.documentElement.style.scrollBehavior = "auto";
+
+  let clickRaf = null;
+  const scrollToY = (y) => {
+    const destY = clampY(y);
     const startY = window.scrollY;
-    const diff = targetY - startY;
-    if (reduceMotion.matches || Math.abs(diff) < 4) {
-      window.scrollTo(0, targetY);
+    const diff = destY - startY;
+
+    // Note: this glide is an explicit navigation action the user requested, so
+    // we animate it even when prefers-reduced-motion is set. Only skip for
+    // trivially small distances.
+    if (Math.abs(diff) < 4) {
+      window.scrollTo(0, destY);
+      currentY = targetY = destY;
       return;
     }
+
+    if (clickRaf) cancelAnimationFrame(clickRaf);
+    ticking = true; // pause the wheel lerp loop while we drive the glide
+    // Distance-aware duration so long jumps don't feel sluggish or too fast.
+    const duration = Math.min(1100, Math.max(550, Math.abs(diff) * 0.6));
     let startTs;
+
     const step = (ts) => {
       if (startTs === undefined) startTs = ts;
       const t = Math.min((ts - startTs) / duration, 1);
-      window.scrollTo(0, startY + diff * easeInOutCubic(t));
-      if (t < 1) requestAnimationFrame(step);
+      const y2 = startY + diff * easeInOutCubic(t);
+      window.scrollTo(0, y2);
+      currentY = targetY = y2; // keep the wheel controller in sync
+      if (t < 1) {
+        clickRaf = requestAnimationFrame(step);
+      } else {
+        clickRaf = null;
+        ticking = false;
+      }
     };
-    requestAnimationFrame(step);
+    clickRaf = requestAnimationFrame(step);
   };
+
+  if (smoothEnabled) {
+    window.addEventListener(
+      "wheel",
+      (e) => {
+        if (e.ctrlKey) return; // allow pinch-zoom
+        e.preventDefault();
+        const unit =
+          e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
+        targetY = clampY(targetY + e.deltaY * unit);
+        ensureTick();
+      },
+      { passive: false }
+    );
+
+    // Re-sync when the user scrolls by other means (keyboard, scrollbar, touch).
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          currentY = window.scrollY;
+          targetY = window.scrollY;
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+        targetY = clampY(targetY);
+      },
+      { passive: true }
+    );
+  }
 
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
@@ -98,7 +192,7 @@
       e.preventDefault();
       closeMenu();
       const y = window.scrollY + target.getBoundingClientRect().top - NAV_OFFSET;
-      smoothScrollTo(Math.max(0, y));
+      scrollToY(Math.max(0, y));
       history.pushState(null, "", href);
     });
   });
