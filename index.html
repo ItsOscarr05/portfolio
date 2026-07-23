@@ -31,6 +31,7 @@
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
+        <a href="#certificates">Certificates</a>
         <a href="#contact">Contact</a>
         <a href="assets/OscarBerrigan_Resume_2026.pdf" class="btn btn--sm" download="Oscar_Berrigan_Resume.pdf">Resume</a>
       </nav>
@@ -347,10 +348,43 @@
       </div>
     </section>
 
+    <!-- ===== Certificates ===== -->
+    <section class="section" id="certificates">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">04.</span> Certificates</h2>
+        <div class="projects">
+
+          <!-- Certificate 1 — replace the image, title, and description below. -->
+          <article class="card">
+            <button class="card__media card__media--cert" type="button"
+                    data-cert-src="assets/certificate-1.png"
+                    data-cert-title="Certificate Title">
+              <img class="card__cert-thumb" src="assets/certificate-1.png" alt="Certificate Title" />
+              <span class="card__cert-hint">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Click to view
+              </span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3 class="card__title"><!-- TODO: certificate name -->Certificate Title</h3>
+              </div>
+              <p class="card__desc">
+                <!-- TODO: what this certificate is and what it covers -->
+                A short description of the certificate &mdash; what it covers, who issued it,
+                and what you learned. <em>(Placeholder &mdash; update in index.html.)</em>
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ===== Contact ===== -->
     <section class="section section--contact" id="contact">
       <div class="container contact">
-        <span class="section__num">04.</span>
+        <span class="section__num">05.</span>
         <h2 class="contact__title">Let&rsquo;s build something.</h2>
         <p class="contact__desc">
           I&rsquo;m currently looking for internship opportunities in business intelligence
@@ -375,6 +409,20 @@
       <p class="dim">&copy; <span id="year"></span> &middot; Harrisonburg, VA</p>
     </div>
   </footer>
+
+  <!-- ===== Certificate lightbox ===== -->
+  <div class="lightbox" id="cert-lightbox" aria-hidden="true">
+    <div class="lightbox__backdrop" data-lightbox-close></div>
+    <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-labelledby="cert-lightbox-cap">
+      <button class="lightbox__close" type="button" aria-label="Close certificate" data-lightbox-close>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <figure class="lightbox__figure">
+        <img id="cert-lightbox-img" src="" alt="" />
+        <figcaption id="cert-lightbox-cap" class="lightbox__caption"></figcaption>
+      </figure>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

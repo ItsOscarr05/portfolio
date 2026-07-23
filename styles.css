@@ -521,6 +521,118 @@ img { max-width: 100%; display: block; }
 }
 .card__report svg { flex: 0 0 auto; }
 
+/* Certificate card thumbnail (button that opens the lightbox) */
+.card__media--cert {
+  height: 190px;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  overflow: hidden;
+}
+.card__media--cert::after { display: none; }
+.card__cert-thumb {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--bg-soft);
+}
+.card__cert-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "Sora", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(10, 10, 11, 0.55);
+  opacity: 0;
+  transition: opacity 0.25s var(--ease);
+}
+.card__media--cert:hover .card__cert-hint,
+.card__media--cert:focus-visible .card__cert-hint { opacity: 1; }
+
+/* ---------- Certificate lightbox ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  padding: 5vh 5vw;
+  place-items: center;
+}
+.lightbox.is-open { display: grid; }
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 6, 8, 0.8);
+  backdrop-filter: blur(4px);
+  animation: modalFade 0.2s var(--ease);
+}
+.lightbox__dialog {
+  position: relative;
+  z-index: 1;
+  max-width: min(1100px, 100%);
+  max-height: 90vh;
+  animation: modalPop 0.24s var(--ease);
+}
+.lightbox__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.lightbox__figure img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  background: #fff;
+}
+.lightbox__caption {
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+.lightbox__close {
+  position: fixed;
+  top: 3vh;
+  right: 4vw;
+  z-index: 2;
+  width: 44px; height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
+              background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.lightbox__close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+body.lightbox-open { overflow: hidden; }
+@keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalPop {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 /* ---------- Tags ---------- */
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tags li {

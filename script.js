@@ -261,6 +261,50 @@
     pfp.addEventListener("error", showFallback);
   }
 
+  // --- Certificate lightbox (view certificate image full-size) ---
+  const lightbox = document.getElementById("cert-lightbox");
+  const lightboxImg = document.getElementById("cert-lightbox-img");
+  const lightboxCap = document.getElementById("cert-lightbox-cap");
+
+  if (lightbox && lightboxImg) {
+    let lastFocused = null;
+
+    const openLightbox = (src, title) => {
+      lastFocused = document.activeElement;
+      lightboxImg.src = src;
+      lightboxImg.alt = title || "Certificate";
+      if (lightboxCap) lightboxCap.textContent = title || "";
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      const closeBtn = lightbox.querySelector(".lightbox__close");
+      if (closeBtn) closeBtn.focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      lightboxImg.src = "";
+      if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+    };
+
+    document.querySelectorAll("[data-cert-src]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const src = (btn.getAttribute("data-cert-src") || "").trim();
+        if (!src) return;
+        openLightbox(src, btn.getAttribute("data-cert-title"));
+      });
+    });
+
+    lightbox.querySelectorAll("[data-lightbox-close]").forEach((el) =>
+      el.addEventListener("click", closeLightbox)
+    );
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
+    });
+  }
+
   // --- Current year in footer ---
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
