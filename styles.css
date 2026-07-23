@@ -491,6 +491,7 @@ img { max-width: 100%; display: block; }
   margin-bottom: 10px;
 }
 .card__title { font-size: 1.3rem; font-weight: 700; }
+.card__year { color: var(--muted); font-weight: 500; font-size: 0.9em; }
 .card__links { display: flex; align-items: center; gap: 12px; }
 .card__links a { color: var(--muted); transition: color 0.2s var(--ease), transform 0.2s var(--ease); }
 .card__links a:hover { color: var(--accent); transform: translateY(-2px); }
