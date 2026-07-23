@@ -442,6 +442,7 @@ img { max-width: 100%; display: block; }
   inset: 0;
   background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 11, 0.55));
 }
+.card__media--banner::after { display: none; }
 .card__initial {
   position: relative;
   z-index: 1;
@@ -460,9 +461,11 @@ img { max-width: 100%; display: block; }
   margin-bottom: 10px;
 }
 .card__title { font-size: 1.3rem; font-weight: 700; }
-.card__links { display: flex; gap: 12px; }
+.card__links { display: flex; align-items: center; gap: 12px; }
 .card__links a { color: var(--muted); transition: color 0.2s var(--ease), transform 0.2s var(--ease); }
 .card__links a:hover { color: var(--accent); transform: translateY(-2px); }
+.card__link-text { font-size: 0.85rem; font-weight: 500; }
+.card__link-text:hover { text-decoration: underline; }
 .card__tagline { color: var(--text); font-weight: 500; margin-bottom: 10px; }
 .card__desc { color: var(--muted); font-size: 0.94rem; margin-bottom: 18px; flex: 1; }
 
