@@ -305,6 +305,50 @@
     });
   }
 
+  // --- Report modal (view full report PDF in-page) ---
+  const reportModal = document.getElementById("report-lightbox");
+  const reportFrame = document.getElementById("report-lightbox-frame");
+  const reportCap = document.getElementById("report-lightbox-cap");
+
+  if (reportModal && reportFrame) {
+    let reportLastFocused = null;
+
+    const openReport = (src, title) => {
+      reportLastFocused = document.activeElement;
+      reportFrame.src = src;
+      if (reportCap) reportCap.innerHTML = title || "";
+      reportModal.classList.add("is-open");
+      reportModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      const closeBtn = reportModal.querySelector(".lightbox__close");
+      if (closeBtn) closeBtn.focus();
+    };
+
+    const closeReport = () => {
+      reportModal.classList.remove("is-open");
+      reportModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      reportFrame.src = "";
+      if (reportLastFocused && typeof reportLastFocused.focus === "function") reportLastFocused.focus();
+    };
+
+    document.querySelectorAll("[data-report]").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const src = (link.getAttribute("href") || "").trim();
+        if (!src) return;
+        e.preventDefault();
+        openReport(src, link.getAttribute("data-report-title"));
+      });
+    });
+
+    reportModal.querySelectorAll("[data-report-close]").forEach((el) =>
+      el.addEventListener("click", closeReport)
+    );
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && reportModal.classList.contains("is-open")) closeReport();
+    });
+  }
+
   // --- Current year in footer ---
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
