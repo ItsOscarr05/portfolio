@@ -228,7 +228,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   width: var(--size);
   height: var(--size);
-  border-radius: 28px;
+  border-radius: 50%;
   overflow: hidden;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   padding: 3px;
@@ -248,7 +248,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 3px;
   z-index: 1;
-  border-radius: 25px;
+  border-radius: 50%;
   width: calc(100% - 6px);
   height: calc(100% - 6px);
   object-fit: cover;
@@ -349,15 +349,6 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius);
   padding: 28px;
   box-shadow: var(--shadow);
-}
-.about__avatar {
-  width: 88px; height: 88px;
-  border-radius: 20px;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-  background: var(--bg-soft);
-  margin-bottom: 22px;
 }
 .fact { border-bottom: 1px solid var(--border); }
 .fact:last-child { border-bottom: 0; }
