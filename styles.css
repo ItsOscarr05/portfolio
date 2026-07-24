@@ -349,7 +349,9 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius);
   padding: 28px;
   box-shadow: var(--shadow);
+  transition: border-color 0.25s var(--ease);
 }
+.about__card:hover { border-color: var(--accent); }
 .fact { border-bottom: 1px solid var(--border); }
 .fact:last-child { border-bottom: 0; }
 .fact > summary {
@@ -399,11 +401,12 @@ img { max-width: 100%; display: block; }
 }
 /* JS animates the height; this is the collapsed starting point it drives from */
 .fact.is-animating .fact__info { will-change: height, opacity; }
-.fact:nth-child(1) .fact__icon { color: #a78bfa; } /* purple */
-.fact:nth-child(2) .fact__icon { color: #34d399; } /* green */
-.fact:nth-child(3) .fact__icon { color: #fbbf24; } /* yellow */
-.fact:nth-child(4) .fact__icon { color: #f87171; } /* red */
-.fact:nth-child(5) .fact__icon { color: #f472b6; } /* pink */
+.fact:nth-child(1) .fact__icon { color: #a78bfa; } /* purple — BBA/CIS */
+.fact:nth-child(2) .fact__icon { color: #3b82f6; } /* blue — Off the clock */
+.fact:nth-child(3) .fact__icon { color: #34d399; } /* green — Business intelligence */
+.fact:nth-child(4) .fact__icon { color: #fbbf24; } /* yellow — Full-stack & AI */
+.fact:nth-child(5) .fact__icon { color: #f87171; } /* red — Harrisonburg */
+.fact:nth-child(6) .fact__icon { color: #f472b6; } /* pink — Open to internships */
 
 /* ---------- Projects ---------- */
 .projects__group { margin-bottom: 64px; }
