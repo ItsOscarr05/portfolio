@@ -371,6 +371,13 @@ img { max-width: 100%; display: block; }
 }
 .fact > summary::-webkit-details-marker { display: none; }
 .fact > summary:hover { color: var(--text); }
+.fact--static {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  color: var(--muted);
+}
 .fact__icon {
   display: inline-flex;
   align-items: center;
