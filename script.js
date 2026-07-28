@@ -305,18 +305,59 @@
     });
   }
 
-  // --- Report modal (view full report PDF in-page) ---
+  // --- Report modal (PDF + optional data-model image in one viewer) ---
   const reportModal = document.getElementById("report-lightbox");
   const reportFrame = document.getElementById("report-lightbox-frame");
   const reportCap = document.getElementById("report-lightbox-cap");
+  const reportTabs = document.getElementById("report-tabs");
+  const reportModelImg = document.getElementById("report-lightbox-model");
+  const reportPanelPdf = document.getElementById("report-panel-pdf");
+  const reportPanelModel = document.getElementById("report-panel-model");
 
   if (reportModal && reportFrame) {
     let reportLastFocused = null;
+    let reportBaseTitle = "";
 
-    const openReport = (src, title) => {
+    const setReportTab = (tab) => {
+      const showModel = tab === "model";
+      reportModal.querySelectorAll("[data-report-tab]").forEach((btn) => {
+        const active = btn.getAttribute("data-report-tab") === tab;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-selected", String(active));
+      });
+      if (reportPanelPdf) {
+        reportPanelPdf.classList.toggle("is-active", !showModel);
+        reportPanelPdf.hidden = showModel;
+      }
+      if (reportPanelModel) {
+        reportPanelModel.classList.toggle("is-active", showModel);
+        reportPanelModel.hidden = !showModel;
+      }
+      if (reportCap) {
+        reportCap.innerHTML = showModel
+          ? (reportModelImg?.dataset.modelTitle || "Data model")
+          : reportBaseTitle;
+      }
+    };
+
+    const openReport = (src, title, modelSrc, modelTitle) => {
       reportLastFocused = document.activeElement;
+      reportBaseTitle = title || "";
       reportFrame.src = src;
-      if (reportCap) reportCap.innerHTML = title || "";
+      if (reportCap) reportCap.innerHTML = reportBaseTitle;
+
+      const hasModel = Boolean(modelSrc);
+      if (reportTabs) reportTabs.hidden = !hasModel;
+      if (hasModel && reportModelImg) {
+        reportModelImg.src = modelSrc;
+        reportModelImg.alt = modelTitle || "Data model";
+        reportModelImg.dataset.modelTitle = modelTitle || "Data model";
+      } else if (reportModelImg) {
+        reportModelImg.src = "";
+        delete reportModelImg.dataset.modelTitle;
+      }
+
+      setReportTab("pdf");
       reportModal.classList.add("is-open");
       reportModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("lightbox-open");
@@ -329,6 +370,8 @@
       reportModal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("lightbox-open");
       reportFrame.src = "";
+      if (reportModelImg) reportModelImg.src = "";
+      setReportTab("pdf");
       if (reportLastFocused && typeof reportLastFocused.focus === "function") reportLastFocused.focus();
     };
 
@@ -337,9 +380,23 @@
         const src = (link.getAttribute("href") || "").trim();
         if (!src) return;
         e.preventDefault();
-        openReport(src, link.getAttribute("data-report-title"));
+        openReport(
+          src,
+          link.getAttribute("data-report-title"),
+          (link.getAttribute("data-report-model") || "").trim(),
+          link.getAttribute("data-report-model-title")
+        );
       });
     });
+
+    // Event delegation so tab clicks always reach the handler
+    if (reportTabs) {
+      reportTabs.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-report-tab]");
+        if (!btn || !reportTabs.contains(btn)) return;
+        setReportTab(btn.getAttribute("data-report-tab"));
+      });
+    }
 
     reportModal.querySelectorAll("[data-report-close]").forEach((el) =>
       el.addEventListener("click", closeReport)

@@ -58,13 +58,13 @@ Everything lives in `index.html`:
 - [x] Reframed Alyne & QuadWear with a BI/data angle
 - [x] Trimmed the Skills list (removed `Cursor`)
 - [x] Added a coursework line to About (GPA intentionally omitted)
+- [x] Added the Maven star-schema model into the "View full report" modal (Report + Data model tabs)
 
 ### Things to finish
 
 - [ ] Add a second real-data, quantified BI project as the new flagship
       (biggest remaining gap: proof of independent, real-data BI work)
 - [ ] Deepen the Maven case study so the report shows actual DAX/SQL, not just screenshots
-- [ ] (Optional) Add the Power BI model-view screenshot to the Maven card as visual proof
 - [ ] Relaunch **AssignmentAI**: finish its description and remove the
       `style="display:none"` on its card (search for `AssignmentAI` in `index.html`)
 - [ ] When updating the resume, edit the `.docx` and re-export to
