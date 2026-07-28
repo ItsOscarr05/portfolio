@@ -319,26 +319,44 @@
     let reportBaseTitle = "";
     let reportModelTitle = "";
 
-    const setReportTab = (tab) => {
+    const setReportTab = (tab, { animate = true } = {}) => {
       const showModel = tab === "model";
+      const nextTitle = showModel
+        ? (reportModelTitle || "Data model")
+        : reportBaseTitle;
+
       reportModal.querySelectorAll("[data-report-tab]").forEach((btn) => {
         const active = btn.getAttribute("data-report-tab") === tab;
         btn.classList.toggle("is-active", active);
         btn.setAttribute("aria-selected", String(active));
       });
+
       if (reportPanelPdf) {
         reportPanelPdf.classList.toggle("is-active", !showModel);
-        reportPanelPdf.hidden = showModel;
+        reportPanelPdf.hidden = false;
+        reportPanelPdf.setAttribute("aria-hidden", String(showModel));
       }
       if (reportPanelModel) {
         reportPanelModel.classList.toggle("is-active", showModel);
-        reportPanelModel.hidden = !showModel;
+        reportPanelModel.hidden = false;
+        reportPanelModel.setAttribute("aria-hidden", String(!showModel));
       }
-      if (reportCap) {
-        reportCap.innerHTML = showModel
-          ? (reportModelTitle || "Data model")
-          : reportBaseTitle;
+
+      if (!reportCap) return;
+
+      const reduceMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!animate || reduceMotion) {
+        reportCap.innerHTML = nextTitle;
+        reportCap.classList.remove("is-fading");
+        return;
       }
+
+      reportCap.classList.add("is-fading");
+      window.setTimeout(() => {
+        reportCap.innerHTML = nextTitle;
+        reportCap.classList.remove("is-fading");
+      }, 140);
     };
 
     const openReport = (src, title, modelSrc, modelTitle) => {
@@ -356,7 +374,7 @@
         reportModelFrame.src = "";
       }
 
-      setReportTab("pdf");
+      setReportTab("pdf", { animate: false });
       reportModal.classList.add("is-open");
       reportModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("lightbox-open");
@@ -370,7 +388,7 @@
       document.body.classList.remove("lightbox-open");
       reportFrame.src = "";
       if (reportModelFrame) reportModelFrame.src = "";
-      setReportTab("pdf");
+      setReportTab("pdf", { animate: false });
       if (reportLastFocused && typeof reportLastFocused.focus === "function") reportLastFocused.focus();
     };
 
