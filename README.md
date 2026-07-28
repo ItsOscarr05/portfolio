@@ -30,19 +30,21 @@ portfolio/
 Everything lives in `index.html`:
 
 - **Hero / About** — tagline, bio, and quick facts.
-- **Projects** — three `<article class="card">` blocks (Alyne, QuadWear, AssignmentAI).
-  Update the GitHub links (`href="..."`), tech-stack `<li>` tags, and descriptions.
+- **Projects** — grouped into **Data Analytics & BI** (Maven Market) and **Software
+  Engineering** (Alyne, QuadWear). AssignmentAI is present but hidden
+  (`style="display:none"`) until it's ready to relaunch. Update the GitHub links
+  (`href="..."`), tech-stack `<li>` tags, and descriptions.
 - **Skills** — grouped `<ul class="tags tags--lg">` lists.
 - **Contact** — email, LinkedIn, GitHub, and resume links.
 
-### Things to finish (from the PRD open items)
+### Things to finish
 
 - [ ] When updating the resume, edit the `.docx` and re-export to
       `OscarBerrigan_Resume_2026.pdf` (the resume buttons link to the PDF)
-- [ ] Write the final one-sentence description for **AssignmentAI**
-      (search for `TODO` in `index.html`)
-- [ ] Point each project's GitHub/live-demo links at the correct repos/URLs
-- [ ] (Optional) Add real project screenshots — currently gradient placeholders
+- [ ] Add a second real-data, quantified BI project as the new flagship
+- [ ] Quantify the Maven Market blurb (# DAX measures, fact tables, stores/regions)
+- [ ] Relaunch **AssignmentAI**: finish its description and remove the
+      `style="display:none"` on its card (search for `AssignmentAI` in `index.html`)
 
 ## Run locally
 
