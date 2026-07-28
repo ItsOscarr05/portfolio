@@ -305,18 +305,19 @@
     });
   }
 
-  // --- Report modal (PDF + optional data-model image in one viewer) ---
+  // --- Report modal (PDF report + optional data-model PDF in one viewer) ---
   const reportModal = document.getElementById("report-lightbox");
   const reportFrame = document.getElementById("report-lightbox-frame");
   const reportCap = document.getElementById("report-lightbox-cap");
   const reportTabs = document.getElementById("report-tabs");
-  const reportModelImg = document.getElementById("report-lightbox-model");
+  const reportModelFrame = document.getElementById("report-lightbox-model");
   const reportPanelPdf = document.getElementById("report-panel-pdf");
   const reportPanelModel = document.getElementById("report-panel-model");
 
   if (reportModal && reportFrame) {
     let reportLastFocused = null;
     let reportBaseTitle = "";
+    let reportModelTitle = "";
 
     const setReportTab = (tab) => {
       const showModel = tab === "model";
@@ -335,7 +336,7 @@
       }
       if (reportCap) {
         reportCap.innerHTML = showModel
-          ? (reportModelImg?.dataset.modelTitle || "Data model")
+          ? (reportModelTitle || "Data model")
           : reportBaseTitle;
       }
     };
@@ -343,18 +344,16 @@
     const openReport = (src, title, modelSrc, modelTitle) => {
       reportLastFocused = document.activeElement;
       reportBaseTitle = title || "";
+      reportModelTitle = modelTitle || "Data model";
       reportFrame.src = src;
       if (reportCap) reportCap.innerHTML = reportBaseTitle;
 
       const hasModel = Boolean(modelSrc);
       if (reportTabs) reportTabs.hidden = !hasModel;
-      if (hasModel && reportModelImg) {
-        reportModelImg.src = modelSrc;
-        reportModelImg.alt = modelTitle || "Data model";
-        reportModelImg.dataset.modelTitle = modelTitle || "Data model";
-      } else if (reportModelImg) {
-        reportModelImg.src = "";
-        delete reportModelImg.dataset.modelTitle;
+      if (hasModel && reportModelFrame) {
+        reportModelFrame.src = modelSrc;
+      } else if (reportModelFrame) {
+        reportModelFrame.src = "";
       }
 
       setReportTab("pdf");
@@ -370,7 +369,7 @@
       reportModal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("lightbox-open");
       reportFrame.src = "";
-      if (reportModelImg) reportModelImg.src = "";
+      if (reportModelFrame) reportModelFrame.src = "";
       setReportTab("pdf");
       if (reportLastFocused && typeof reportLastFocused.focus === "function") reportLastFocused.focus();
     };
