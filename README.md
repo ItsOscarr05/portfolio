@@ -4,7 +4,7 @@ A fast, single-page personal portfolio for Oscar Berrigan, a Computer Informatio
 Systems student at James Madison University (expected May 2028). Built to give
 recruiters a credible first impression in under 30 seconds.
 
-**Live site:** _add your Vercel URL here after deploying_
+**Live site:** [oscarberrigan.com](https://oscarberrigan.com)
 
 ## Tech stack
 
