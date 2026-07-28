@@ -252,7 +252,7 @@
   });
 
   // --- Profile picture fallback ---
-  // Shows the "OB" initials until a real assets/profile.jpg is added.
+  // Shows the "OB" initials if assets/About_me_pfp.png fails to load.
   const pfp = document.getElementById("pfp");
   const pfpFrame = document.getElementById("pfp-frame");
   if (pfp && pfpFrame) {

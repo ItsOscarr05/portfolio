@@ -23,10 +23,11 @@ portfolio/
 └── assets/
     ├── OscarBerrigan_Resume_2026.pdf    # linked from the resume buttons
     ├── OscarBerrigan_Resume_2026.docx   # editable resume source
-    ├── MavenMarket_Report.pdf           # opens in the "View full report" modal
-    ├── profile.png                      # hero headshot
-    ├── *-banner.png                     # project card banners (maven, alyne, quadwear)
-    └── certificate-*.png / cert-banner-*.png  # certificate images + thumbnails
+    ├── MavenMarket_report_view.pdf      # dashboard PDF in the report modal
+    ├── MavenMarket_model_view.pdf       # star-schema PDF (Data model tab)
+    ├── About_me_pfp.png                 # hero headshot
+    ├── Maven_market_banner.png / alyne_banner.png / QuadWear_banner.png
+    └── PBI_ / SQL_ / Excel_ / Python_ / HTML_CSS_ cert + cover images
 ```
 
 ## Editing content
@@ -40,7 +41,8 @@ Everything lives in `index.html`:
   Engineering** (Alyne, QuadWear).
   - **Maven Market** is quantified: 7-table star schema (2 fact + 5 dimension),
     ~20 DAX measures, $1.76M revenue, 60k+ transactions, 59% margin, ~1% return rate.
-    Includes a "View full report" modal (`MavenMarket_Report.pdf`).
+    Includes a "View full report" modal (`MavenMarket_report_view.pdf` +
+    `MavenMarket_model_view.pdf`).
   - **Alyne** and **QuadWear** each carry a BI/data angle so they support the
     BI-first positioning rather than reading as a separate SWE portfolio.
   - **AssignmentAI** is present but hidden (`style="display:none"`) until it's ready
