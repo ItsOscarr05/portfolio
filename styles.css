@@ -442,6 +442,26 @@ img { max-width: 100%; display: block; }
   font-size: 0.94rem;
   margin-top: 2px;
 }
+.projects__group-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.projects__group--supporting {
+  margin-top: 8px;
+  padding-top: 8px;
+  opacity: 0.92;
+}
+.projects__group--supporting .projects__group-icon {
+  color: var(--muted);
+}
+.projects__group--supporting .projects__group-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
