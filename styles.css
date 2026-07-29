@@ -455,9 +455,6 @@ img { max-width: 100%; display: block; }
   padding-top: 8px;
   opacity: 0.92;
 }
-.projects__group--supporting .projects__group-icon {
-  color: var(--muted);
-}
 .projects__group--supporting .projects__group-title {
   font-size: 1.2rem;
   font-weight: 600;
