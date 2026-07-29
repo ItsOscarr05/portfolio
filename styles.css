@@ -789,20 +789,20 @@ body.lightbox-open { overflow: hidden; }
 .skills__group:hover { border-color: var(--accent); transform: translateY(-4px); }
 
 /* Per-theme chip colors: each skills group shares one color */
-.skills__group:nth-child(1) .tags li {   /* Business Intelligence & Analytics — green */
-  color: #6ee7b7;
-  background: rgba(52, 211, 153, 0.10);
-  border-color: rgba(52, 211, 153, 0.28);
-}
-.skills__group:nth-child(2) .tags li {   /* Languages — purple */
+.skills__group:nth-child(1) .tags li {   /* Languages — purple */
   color: #c4b5fd;
   background: rgba(167, 139, 250, 0.12);
   border-color: rgba(167, 139, 250, 0.30);
 }
-.skills__group:nth-child(3) .tags li {   /* Software & Tools — sky blue */
+.skills__group:nth-child(2) .tags li {   /* Software & Tools — sky blue */
   color: #7dd3fc;
   background: rgba(56, 189, 248, 0.10);
   border-color: rgba(56, 189, 248, 0.28);
+}
+.skills__group:nth-child(3) .tags li {   /* Data & BI — green */
+  color: #6ee7b7;
+  background: rgba(52, 211, 153, 0.10);
+  border-color: rgba(52, 211, 153, 0.28);
 }
 .skills__group h3 {
   font-size: 1.05rem;
