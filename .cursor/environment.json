@@ -1,0 +1,11 @@
+{
+  "name": "Oscar Berrigan Portfolio",
+  "ports": [{ "name": "web", "port": 5173 }],
+  "terminals": [
+    {
+      "name": "static-server",
+      "command": "python3 -m http.server 5173",
+      "description": "Serves the static portfolio site at http://localhost:5173"
+    }
+  ]
+}
